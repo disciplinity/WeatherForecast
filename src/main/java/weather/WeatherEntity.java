@@ -1,5 +1,8 @@
-package models;
+package weather;
 
+
+import locations.Position;
+import locations.PositionData;
 
 public abstract class WeatherEntity {
 
@@ -14,7 +17,6 @@ public abstract class WeatherEntity {
             this.position = data.position;
         }
     }
-
 
     public String getCityName() {
         return cityName;

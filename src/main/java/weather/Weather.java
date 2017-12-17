@@ -1,9 +1,9 @@
-package models;
+package weather;
 
 
-public class Weather {
+public class Weather implements Comparable<Weather> {
 
-    enum TemperatureUnits {
+    public enum TemperatureUnits {
         kelvin, fahrenheit, celsius
     }
 
@@ -21,6 +21,14 @@ public class Weather {
 
     public TemperatureUnits getTemperatureUnits() {
         return temperatureUnits;
+    }
+
+    public int compareTo(Weather o) {
+        if  (this.getTemperatureInKelvins() > o.getTemperatureInKelvins())
+            return 1;
+        else if (this.getTemperatureInKelvins() == o.getTemperatureInKelvins())
+            return 0;
+        return -1;
     }
 
     @Override
