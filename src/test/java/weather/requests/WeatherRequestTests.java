@@ -2,14 +2,9 @@ package weather.requests;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 
-/**
- * Created by Daiy on 17.12.2017.
- */
 public class WeatherRequestTests {
 
     private WeatherFetcher weatherFetcher;
@@ -30,12 +25,23 @@ public class WeatherRequestTests {
 
     @Test
     public void testCurrentWeatherCreationWeatherExists() {
-        currentWeatherEntity = requester.fetchCurrentWeather();
+        currentWeatherEntity = weatherFetcher.fetchCurrentWeather();
         if (currentWeatherEntity != null) {
             Weather weather = ((CurrentWeatherEntity) currentWeatherEntity).getCurrentWeather();
             assertNotEquals(null, weather);
         } else {
-            fail("Problem occured creating current weather.");
+            fail("Problem occurred creating current weather.");
+        }
+    }
+
+    @Test
+    public void testForecastCreationForecastExists() {
+        weatherForecastEntity = weatherFetcher.fetchWeatherForecast();
+        if (weatherForecastEntity != null) {
+            ThreeDayForecastContainer[] threeDayForecastContainer = ((WeatherForecastEntity) weatherForecastEntity).getForecast();
+            assertNotEquals(null, threeDayForecastContainer);
+        } else {
+            fail("Problem occurred when creating forecast weather.");
         }
     }
 
