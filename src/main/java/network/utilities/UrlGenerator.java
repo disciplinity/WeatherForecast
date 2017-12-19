@@ -1,6 +1,8 @@
 package network.utilities;
 
 
+import api.OpenWeatherUrlConstants;
+
 public class UrlGenerator {
 
     private String currentCity;
@@ -9,24 +11,24 @@ public class UrlGenerator {
         this.currentCity = currentCity;
     }
 
-    enum LinkType {
+    enum UrlType {
         FORECAST, CURRENT_WEATHER
     }
 
-    private String generateLink(LinkType type) {
+    private String generateLink(UrlType urlType) {
         if (currentCity == null) {
             throw new IllegalStateException("City name is not set in link generator object!");
         }
-
-        return null; // not sure how i'll do it here later on, will leave for now
+        String weatherApiType = (UrlType.CURRENT_WEATHER == urlType) ? OpenWeatherUrlConstants.CURRENT_WEATHER_REQUEST : OpenWeatherUrlConstants.FORECAST_REQUEST;
+        return OpenWeatherUrlConstants.API_URL_BASE + weatherApiType + "q=" + currentCity + OpenWeatherUrlConstants.API_KEY;
     }
 
 
     public String generateForecastLink() {
-        return generateLink(LinkType.FORECAST);
+        return generateLink(UrlType.FORECAST);
     }
 
     public String generateCurrentWeatherLink() {
-        return generateLink(LinkType.CURRENT_WEATHER);
+        return generateLink(UrlType.CURRENT_WEATHER);
     }
 }
