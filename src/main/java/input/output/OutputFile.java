@@ -25,7 +25,7 @@ public class OutputFile {
 
     public void makeReport(ReportMaker reportMaker) throws IllegalArgumentException {
         try (FileWriter outputBuffer = new FileWriter(file)) {
-            String report = reportMaker.makeReport();
+            String report = reportMaker.generateReport();
             outputBuffer.append(report);
         } catch (IOException e ) {
             e.getStackTrace();

@@ -21,20 +21,20 @@ public class OpenWeatherApiWeatherForecast implements ApiModel {
     public SingleDayMinAndMaxWeather[] getThreeDayWeatherForecast() {
         TreeMap<String, SingleDayMinAndMaxWeather> weathersByDay = new TreeMap<>();
         SingleDayMinAndMaxWeather[] threeDayForecast = new SingleDayMinAndMaxWeather[3];
-        int counter = 0;
+        int dayCounter = 0;
         for (HashMap<String, Object> aList : list) {
-            if (counter == 3) break;
+            if (dayCounter == 3) break;
             LinkedTreeMap<String, Double> weathers = (LinkedTreeMap<String, Double>) aList.get("main");
             Weather minTemp = new Weather(weathers.get("temp_min"), Weather.TemperatureUnits.kelvin);
             Weather maxTemp = new Weather(weathers.get("temp_max"), Weather.TemperatureUnits.kelvin);
             String date = ((String) aList.get("dt_txt")).substring(0, 10);
-            counter = createWeatherForecasts(weathersByDay, threeDayForecast, counter, minTemp, maxTemp, date);
+            dayCounter = createWeatherForecasts(weathersByDay, threeDayForecast, dayCounter, minTemp, maxTemp, date);
         }
         return threeDayForecast;
     }
 
     private int createWeatherForecasts(TreeMap<String, SingleDayMinAndMaxWeather> weathersByDay, SingleDayMinAndMaxWeather[] singleDayMinAndMaxWeathers,
-                                       int counter, Weather minTemperature, Weather maxTemperature, String date) {
+                                       int dayCounter, Weather minTemperature, Weather maxTemperature, String date) {
         if (weathersByDay.containsKey(date)) {
             if (weathersByDay.get(date).minTemperature.compareTo(minTemperature) == 1) {
                 weathersByDay.get(date).minTemperature = minTemperature;
@@ -44,9 +44,9 @@ public class OpenWeatherApiWeatherForecast implements ApiModel {
             }
         } else {
             weathersByDay.put(date, new SingleDayMinAndMaxWeather(minTemperature, maxTemperature));
-            singleDayMinAndMaxWeathers[counter++] = weathersByDay.get(date);
+            singleDayMinAndMaxWeathers[dayCounter++] = weathersByDay.get(date);
         }
-        return counter;
+        return dayCounter;
     }
 
 
@@ -59,10 +59,6 @@ public class OpenWeatherApiWeatherForecast implements ApiModel {
         return new Position(lat, lon);
     }
 
-    public SingleDayMinAndMaxWeather[] getWeatherForecast() {
-        return getThreeDayWeatherForecast();
-
-    }
 
     @Override
     public String getName() {

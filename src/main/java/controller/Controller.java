@@ -39,7 +39,7 @@ public class Controller {
                 WeatherEntity fetchedWeatherForecast = weatherFetcher.fetchWeatherForecast();
 
                 if (!(fetchedCurrentWeather != null && fetchedWeatherForecast != null)) {
-                    System.err.println("Invalid results for given city name");
+                    System.err.println("Invalid results for given city name.");
                     return;
                 }
 

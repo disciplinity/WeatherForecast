@@ -19,8 +19,8 @@ public class UrlGenerator {
         if (currentCity == null) {
             throw new IllegalStateException("City name is not set in link generator object!");
         }
-        String weatherApiType = (UrlType.CURRENT_WEATHER == urlType) ? OpenWeatherUrlConstants.CURRENT_WEATHER_REQUEST : OpenWeatherUrlConstants.FORECAST_REQUEST;
-        return OpenWeatherUrlConstants.API_URL_BASE + weatherApiType + "q=" + currentCity + OpenWeatherUrlConstants.API_KEY;
+        String weatherApiType = (UrlType.CURRENT_WEATHER == urlType) ? OpenWeatherUrlConstants.WEATHER_REQUEST : OpenWeatherUrlConstants.FORECAST_REQUEST;
+        return OpenWeatherUrlConstants.URL_BASE + weatherApiType + "q=" + currentCity + OpenWeatherUrlConstants.KEY;
     }
 
 

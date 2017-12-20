@@ -17,7 +17,11 @@ public class OpenWeatherReporter implements ReportMaker {
         this.weatherForecastEntity = weatherForecastEntity;
     }
 
-    public String makeReport() {
+    public OpenWeatherReporter() {
+
+    }
+
+    public String generateReport() {
         if (currentWeather == null || weatherForecastEntity == null) {
             throw new WeatherEntitiesDoNotExistException("One of the or both of the weather entities are missing");
         }
