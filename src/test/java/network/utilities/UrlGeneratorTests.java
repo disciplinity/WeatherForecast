@@ -15,7 +15,7 @@ public class UrlGeneratorTests {
     private String fetchValidLink(String choiceBetweenForecastAndCurrentWeather) {
         return String.format(
                 "http://api.openweathermap.org/data/2.5/%s?q=%s%s",
-                choiceBetweenForecastAndCurrentWeather, givenCity, OpenWeatherUrlConstants.API_KEY);
+                choiceBetweenForecastAndCurrentWeather, givenCity, OpenWeatherUrlConstants.KEY);
     }
 
     @Before

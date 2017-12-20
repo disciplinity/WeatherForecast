@@ -1,0 +1,1 @@
+{"cityName":"Tallinn","latitude":59.439998626708984,"longitude":24.75,"forecast":{"0":{"min":274.851,"max":275.82},"1":{"min":273.205,"max":277.65},"2":{"min":272.925,"max":272.925}},"currentWeather":275.1499938964844}

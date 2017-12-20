@@ -1,0 +1,1 @@
+{"cityName":"Washington DC.","latitude":38.900001525878906,"longitude":-77.04000091552734,"forecast":{"0":{"min":270.247,"max":277.545},"1":{"min":271.103,"max":284.437},"2":{"min":281.449,"max":281.449}},"currentWeather":282.3299865722656}

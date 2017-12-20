@@ -1,0 +1,1 @@
+{"cityName":"Moscow","latitude":46.72999954223633,"longitude":-117.0,"forecast":{"0":{"min":267.535,"max":274.31},"1":{"min":269.498,"max":272.562},"2":{"min":272.149,"max":272.149}},"currentWeather":275.80999755859375}
