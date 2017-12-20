@@ -3,12 +3,12 @@ package weather;
 /**
  * Created by Daiy on 17.12.2017.
  */
-public class ThreeDayForecastContainer {
+public class SingleDayMinAndMaxWeather {
 
     public Weather minTemperature;
     public Weather maxTemperature;
 
-    public ThreeDayForecastContainer(Weather minTemp, Weather maxTemp) {
+    public SingleDayMinAndMaxWeather(Weather minTemperature, Weather maxTemperature) {
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
     }

@@ -10,7 +10,7 @@ import java.util.HashMap;
  * Created by Daiy on 18.12.2017.
  */
 public class OpenWeatherApiCurrentWeather implements ApiModel {
-    public HashMap<String, Float> coordinates;
+    public HashMap<String, Float> coord;
     public HashMap<String, Float> main;
     public HashMap<String, Object> sys;
     public String name;
@@ -27,8 +27,8 @@ public class OpenWeatherApiCurrentWeather implements ApiModel {
 
     @Override
     public Position getPosition() {
-        double lat = (double) coordinates.get("lat");
-        double lon = (double) coordinates       .get("lon");
+        double lat = (double) coord.get("lat");
+        double lon = (double) coord.get("lon");
         return new Position(lat, lon);
     }
 

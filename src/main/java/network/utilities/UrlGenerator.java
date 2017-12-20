@@ -31,4 +31,8 @@ public class UrlGenerator {
     public String generateCurrentWeatherLink() {
         return generateLink(UrlType.CURRENT_WEATHER);
     }
+
+    public String getCurrentCity() {
+        return currentCity;
+    }
 }

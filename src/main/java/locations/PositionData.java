@@ -1,4 +1,4 @@
-package models;
+package locations;
 
 
 public class PositionData {
@@ -7,10 +7,11 @@ public class PositionData {
     public String countryCode;
     public Position position;
 
-    public PositionData(String cityName, String countryCode, Position position) {
+    public PositionData(String cityName, Position position, String countryCode) {
         this.cityName = cityName;
-        this.countryCode = countryCode;
         this.position = position;
+        this.countryCode = countryCode;
+
     }
 
 }

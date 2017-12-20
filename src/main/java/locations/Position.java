@@ -1,4 +1,4 @@
-package models;
+package locations;
 
 
 public class Position {

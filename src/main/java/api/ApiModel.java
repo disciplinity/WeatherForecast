@@ -10,7 +10,12 @@ public interface ApiModel {
     String getName();
     String getCode();
     Position getPosition();
-    default String getBla() {
-        return "Bla";
+
+    default Weather getWeather() {
+        return null;
+    }
+
+    default SingleDayMinAndMaxWeather[] getThreeDayWeatherForecast() {
+        return null;
     }
 }

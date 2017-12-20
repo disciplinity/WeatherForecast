@@ -5,14 +5,14 @@ import locations.PositionData;
 
 public class WeatherForecastEntity extends WeatherEntity {
 
-    private ThreeDayForecastContainer[] threeDayForecastContainer = new ThreeDayForecastContainer[3];
+    private SingleDayMinAndMaxWeather[] singleDayMinAndMaxWeather = new SingleDayMinAndMaxWeather[3];
 
-    public WeatherForecastEntity(PositionData positionData, ThreeDayForecastContainer[] threeDayForecastContainer) {
+    public WeatherForecastEntity(PositionData positionData, SingleDayMinAndMaxWeather[] singleDayMinAndMaxWeather) {
         super(positionData);
-        this.threeDayForecastContainer = threeDayForecastContainer;
+        this.singleDayMinAndMaxWeather = singleDayMinAndMaxWeather;
     }
 
-    public ThreeDayForecastContainer[] getThreeDayForecastContainer() {
-        return threeDayForecastContainer;
+    public SingleDayMinAndMaxWeather[] getSingleDayMinAndMaxWeather() {
+        return singleDayMinAndMaxWeather;
     }
 }

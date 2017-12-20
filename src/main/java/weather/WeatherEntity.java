@@ -1,6 +1,7 @@
 package weather;
 
 
+import api.ApiModelType;
 import locations.Position;
 import locations.PositionData;
 
@@ -11,11 +12,9 @@ public abstract class WeatherEntity {
     private String countryCode;
 
     WeatherEntity(PositionData data) {
-        if (data != null) {
-            this.cityName = data.cityName;
-            this.countryCode = data.countryCode;
-            this.position = data.position;
-        }
+        this.cityName = data.cityName;
+        this.countryCode = data.countryCode;
+        this.position = data.position;
     }
 
     public String getCityName() {

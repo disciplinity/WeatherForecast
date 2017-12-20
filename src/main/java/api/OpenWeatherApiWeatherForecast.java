@@ -17,7 +17,8 @@ public class OpenWeatherApiWeatherForecast implements ApiModel {
     public HashMap<String, Object>[] list;
 
     @SuppressWarnings("unchecked")
-    private SingleDayMinAndMaxWeather[] getThreeDayWeatherForecast() {
+    @Override
+    public SingleDayMinAndMaxWeather[] getThreeDayWeatherForecast() {
         TreeMap<String, SingleDayMinAndMaxWeather> weathersByDay = new TreeMap<>();
         SingleDayMinAndMaxWeather[] threeDayForecast = new SingleDayMinAndMaxWeather[3];
         int counter = 0;
