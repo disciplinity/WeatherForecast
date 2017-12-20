@@ -3,46 +3,75 @@ package network.utilities;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.net.SocketTimeoutException;
+import java.net.HttpURLConnection;
 
 
 public class HttpConnectionTests {
 
-    private HttpConnectionService httpConnectionService;
-    private String url;
+
+    private final String goodLink = "http://www.reddit.com";
+    private final String badLink = "http://i_want_to_sleep_badly.please_let_me_sleep";
+    private final UrlGenerator urlGenerator = new UrlGenerator();
+    private final int BAD_RESPONSE_CODE = -1;
+    private final String givenCity = "Honolulu";
+
+    private String fetchContentFromConn(String city) {
+        urlGenerator.setCurrentCity(city);
+        HttpURLConnection conn = HttpConnectionService.getConnectionByLink(urlGenerator.generateCurrentWeatherLink());
+        if (conn != null) {
+            return HttpConnectionService.getContentFromConnection(conn);
+        }
+        return null;
+    }
+
+    private int connectTo(String link) {
+        HttpURLConnection connection = HttpConnectionService.getConnectionByLink(link);
+        try {
+            return connection.getResponseCode();
+        } catch (Exception e) {
+            return BAD_RESPONSE_CODE;
+        }
+    }
 
     @Before
-    public void initialize() {
-        httpConnectionService = new HttpConnectionService();
-    }
-
-    @Test (expected = SocketTimeoutException.class)
-    public void connectionToWrongPort() {
-        url = "https://www.reddit.com:32";
-        httpConnectionService.getConnectionByLink(url);
+    public void init() {
+        urlGenerator.setCurrentCity(givenCity);
     }
 
     @Test
-    public void successfulConnectionToWeatherApi() {
-        url = "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1";
-        try {
-            httpConnectionService.getConnectionByLink(url);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+    public void testErrorWhenConnecting() {
+        assertEquals(-1, connectTo(badLink));
     }
 
     @Test
-    public void successfulConnectionToAnyWebsite() {
-        url = "http://www.youtube.com";
-        try {
-            httpConnectionService.getConnectionByLink(url);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+    public void testConnectingToCurrentWeatherApiAndGettingGoodResponse() {
+        assertEquals(200, connectTo(urlGenerator.generateCurrentWeatherLink()));
     }
+
+    @Test
+    public void testConnectingToWeatherForecastApiAndGettingGoodResponse() {
+        assertEquals(200, connectTo(urlGenerator.generateForecastLink()));
+    }
+
+    @Test
+    public void testGetCityFromConnection() {
+        String content = fetchContentFromConn(givenCity);
+        assertTrue(content != null);
+    }
+
+
+
+    @Test
+    public void testGetWrongCityFromConnection() {
+        String content = fetchContentFromConn("plzIWantToSleep");
+        assertFalse(content != null);
+    }
+
 
 }

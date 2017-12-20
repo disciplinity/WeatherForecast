@@ -1,27 +1,25 @@
 package models;
 
+import locations.Position;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 
-/**
- * Created by Daiy on 17.12.2017.
- */
 public class PositionModelTests {
 
-    private Position pos1 = new Position(234, 432);
-    private Position pos2  = new Position(456.0, 654.0);
-    private Position pos3 = new Position(432, 234);
+    private Position location = new Position(576, 489);
+    private Position location2 = new Position(576.0, 489.0);
+    private Position location3 = new Position(543, 345);
 
     @Test
-    public void testPositionsForEquality() {
-        assertEquals(pos1, pos2);
+    public void testPositionsAreEqual() {
+        assertEquals(location, location2);
     }
 
 
     @Test
-    public void testPositionsForNonEquality() {
-        assertNotEquals(pos1, pos3);
+    public void testNotEquals() {
+        assertNotEquals(location, location3);
     }
 }

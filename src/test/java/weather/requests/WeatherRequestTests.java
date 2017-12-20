@@ -1,5 +1,13 @@
 package weather.requests;
 
+import api.ApiModelType;
+import api.OpenWeatherApiCurrentWeather;
+import api.OpenWeatherApiWeatherForecast;
+import javafx.geometry.Pos;
+import locations.Position;
+import network.utilities.UrlGenerator;
+import org.junit.Before;
+import weather.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,43 +15,73 @@ import static org.junit.Assert.*;
 
 public class WeatherRequestTests {
 
-    private WeatherFetcher weatherFetcher;
     private WeatherEntity currentWeatherEntity;
     private WeatherEntity weatherForecastEntity;
+    private WeatherFetcher weatherFetcher;
+
+    @Before
+    public void initSetup() {
+        weatherFetcher = WeatherFetcher.createWeatherFetcherWithDefinedCity("Tallinn",
+                new ApiModelType(OpenWeatherApiCurrentWeather.class, OpenWeatherApiWeatherForecast.class), new UrlGenerator());
+    }
 
     @Test
-    public void fetchCurrentWeather() {
+    public void testCurrentWeatherCreation() {
         currentWeatherEntity = weatherFetcher.fetchCurrentWeather();
         assertNotEquals(null, currentWeatherEntity);
     }
 
     @Test
-    public void fetchWeatherForecast() {
+    public void testWeatherForecastCreation() {
         weatherForecastEntity = weatherFetcher.fetchWeatherForecast();
         assertNotEquals(null, weatherForecastEntity);
     }
 
     @Test
-    public void testCurrentWeatherCreationWeatherExists() {
+    public void testCurrentWeatherCreationgWhenWeatherExists() {
         currentWeatherEntity = weatherFetcher.fetchCurrentWeather();
         if (currentWeatherEntity != null) {
             Weather weather = ((CurrentWeatherEntity) currentWeatherEntity).getCurrentWeather();
             assertNotEquals(null, weather);
         } else {
-            fail("Problem occurred creating current weather.");
+            fail("Error occurred when creating CurrentWeather");
         }
     }
 
     @Test
-    public void testForecastCreationForecastExists() {
+    public void testWeatherForecastCreationWhenForecastExists() {
         weatherForecastEntity = weatherFetcher.fetchWeatherForecast();
         if (weatherForecastEntity != null) {
-            ThreeDayForecastContainer[] threeDayForecastContainer = ((WeatherForecastEntity) weatherForecastEntity).getForecast();
-            assertNotEquals(null, threeDayForecastContainer);
+            SingleDayMinAndMaxWeather[] weather = ((WeatherForecastEntity) weatherForecastEntity).getSingleDayMinAndMaxWeather();
+            assertNotEquals(null, weather);
         } else {
-            fail("Problem occurred when creating forecast weather.");
+            fail("Error occurred when creating WeatherForecast");
         }
     }
 
+    @Test
+    public void testCurrentWeatherCreationWhenPositionDataExists() {
+        currentWeatherEntity = weatherFetcher.fetchCurrentWeather();
+        if (currentWeatherEntity != null) {
+            Position position = currentWeatherEntity.getPosition();
+            String city = currentWeatherEntity.getCityName();
+            String countryCode = currentWeatherEntity.getCountryCode();
+            assertFalse((position == null || city == null || countryCode == null));
+        } else {
+            fail("Current weather not created");
+        }
+    }
 
+    @Test
+    public void testWeatherForecastCreationPositionDataExists() {
+        weatherForecastEntity = weatherFetcher.fetchWeatherForecast();
+        if (weatherForecastEntity != null) {
+            Position position = weatherForecastEntity.getPosition();
+            String city = weatherForecastEntity.getCityName();
+            String countryCode = weatherForecastEntity.getCountryCode();
+            assertFalse((position == null || city == null || countryCode == null));
+        } else {
+            fail("Error occurred when creating weather forecast.");
+        }
+    }
 }
